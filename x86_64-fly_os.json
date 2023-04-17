@@ -9,6 +9,6 @@
     "executables": true,
     "linker-flavor": "ld.lld",
     "linker": "rust-lld",
-    "disable-redzone": true, 
+    "disable-redzone": true,
     "features": "-mmx,-sse,+soft-float"
 }

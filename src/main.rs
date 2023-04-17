@@ -14,14 +14,15 @@ pub extern "C" fn _start() -> ! {
     // 因为链接器会寻找一个名为 `_start` 的函数，所以这个函数就是入口点
     // 默认命名为 `_start`
 
-    let vga_buffer = 0xb8000 as *mut u8;
+    // let vga_buffer = 0xb8000 as *mut u8;
+    // for (i, &byte) in GREETING.iter().enumerate() {
+    //     unsafe {
+    //         *vga_buffer.offset(i as isize * 2) = byte;
+    //         *vga_buffer.offset(i as isize * 2 + 1) = 0xc;
+    //     }
+    // }
 
-    for (i, &byte) in GREETING.iter().enumerate() {
-        unsafe {
-            *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xc;
-        }
-    }
+    vga_buffer::print_test("Hello, fly_os !!!");
 
     loop {}
 }
