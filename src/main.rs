@@ -4,7 +4,9 @@
 
 use core::panic::PanicInfo;
 
-static GREETING: &[u8] = b"Hello, world!";
+mod vga_buffer;
+
+static GREETING: &[u8] = b"Hello, Fly OS!";
 
 #[no_mangle] // 不要名称重整
 pub extern "C" fn _start() -> ! {
@@ -17,7 +19,7 @@ pub extern "C" fn _start() -> ! {
     for (i, &byte) in GREETING.iter().enumerate() {
         unsafe {
             *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
+            *vga_buffer.offset(i as isize * 2 + 1) = 0xc;
         }
     }
 

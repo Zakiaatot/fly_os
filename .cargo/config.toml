@@ -3,6 +3,9 @@ rustflags = ["-C", "link-arg=-nostartfiles"]
 
 [target.thumbv7em-none-eabihf]
 
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"
+
 [unstable]
 build-std-features = ["compiler-builtins-mem"]
 build-std = ["core", "compiler_builtins"]
