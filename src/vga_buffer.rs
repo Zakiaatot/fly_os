@@ -85,7 +85,25 @@ impl Writer {
             }
         }
     }
-    fn new_line(&mut self) {}
+    fn new_line(&mut self) {
+        for row in 1..BUFFER_ROWS {
+            for col in 0..BUFFER_COLS {
+                let screen_char = self.buffer.chars[row][col].read();
+                self.buffer.chars[row - 1][col].write(screen_char);
+            }
+        }
+        self.clear_row(BUFFER_ROWS - 1);
+        self.column_position = 0;
+    }
+    fn clear_row(&mut self, row: usize) {
+        let blank = ScreenChar {
+            ascii_character: b' ',
+            color_code: self.color_code,
+        };
+        for col in 0..BUFFER_COLS {
+            self.buffer.chars[row][col].write(blank);
+        }
+    }
 }
 
 pub fn print_test(s: &str) {
@@ -95,4 +113,13 @@ pub fn print_test(s: &str) {
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     };
     writer.write_string(s);
+}
+
+use core::fmt;
+
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_string(s);
+        Ok(())
+    }
 }

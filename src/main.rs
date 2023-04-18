@@ -22,7 +22,7 @@ pub extern "C" fn _start() -> ! {
     //     }
     // }
 
-    vga_buffer::print_test("Hello, fly_os !!!");
+    vga_buffer::print_test("Hello, fly_os !!!\n6\n");
 
     loop {}
 }
